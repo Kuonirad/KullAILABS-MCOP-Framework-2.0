@@ -1,84 +1,85 @@
-# MCOP Framework 2.0 - Reproducibility Dockerfile
-# This Dockerfile ensures reproducible builds and test environments
-# Base Image SHA: node:18-alpine@sha256:a8b71b9e2ec5d1b0a6f3cfe7d4e62d9c33b4ef8a43c5c4b6d8e9f1a2b3c4d5e6f7
-# Last verified: 2025-12-13
+# MCOP Framework 2.0 - Production Dockerfile
+# 
+# Build: docker build -t mcop-framework .
+# Run:   docker run -p 3000:3000 mcop-framework
+#
+# Security Notes:
+# - Uses non-root user for runtime
+# - Multi-stage build to minimize attack surface
+# - Production dependencies only in final image
 
-# Use explicit SHA for reproducibility
-FROM node:18-alpine AS base
+# =============================================================================
+# Stage 1: Dependencies
+# =============================================================================
+# TODO: Pin to specific digest for maximum reproducibility
+# Example: node:20-bookworm-slim@sha256:<digest>
+FROM node:20-bookworm-slim AS deps
 
-# Set metadata
-LABEL maintainer="KullAI Labs <security@kullailabs.example.com>"
-LABEL version="2.0.0"
-LABEL description="MCOP Framework 2.0 - Reproducible Build Environment"
-LABEL security.policy="https://github.com/KullAILABS/MCOP-Framework-2.0/blob/main/SECURITY.md"
+WORKDIR /app
 
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
+# Copy package files for dependency installation
+COPY package.json package-lock.json ./
+
+# Install dependencies with exact versions from lockfile
+RUN npm ci --only=production && npm cache clean --force
+
+# =============================================================================
+# Stage 2: Builder
+# =============================================================================
+FROM node:20-bookworm-slim AS builder
+
 WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json ./
 
-# Install dependencies with exact versions from lockfile
-RUN npm ci --audit
+# Install ALL dependencies (including devDependencies for build)
+RUN npm ci
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy source code
 COPY . .
 
-# Run linting
-RUN npm run lint
-
-# Run tests
-RUN npm test
-
-# Build application
-RUN npm run build
-
-# Production image, copy all the files and run next
-FROM base AS runner
-WORKDIR /app
-
+# Set environment variables for build
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Create non-root user for security
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Build the application
+RUN npm run build
 
-# Copy built application
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# =============================================================================
+# Stage 3: Runner (Production)
+# =============================================================================
+FROM node:20-bookworm-slim AS runner
 
-USER nextjs
+WORKDIR /app
 
-EXPOSE 3000
-
+# Set environment variables
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
+# Create non-root user for security
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+# Copy built application
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+# Set ownership to non-root user
+RUN chown -R nextjs:nodejs /app
+
+# Switch to non-root user
+USER nextjs
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:3000/api/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1))" || exit 1
+
+# Start the application
 CMD ["node", "server.js"]
-
-# Verification stage - runs tests and outputs Q.E.D. on success
-FROM builder AS verify
-WORKDIR /app
-
-# Run all verification steps
-RUN npm run lint && \
-    npm test && \
-    npm run build && \
-    echo "" && \
-    echo "=========================================" && \
-    echo "MCOP Framework 2.0 Verification Complete" && \
-    echo "=========================================" && \
-    echo "All checks passed:" && \
-    echo "  - Linting: PASSED" && \
-    echo "  - Tests: PASSED" && \
-    echo "  - Build: PASSED" && \
-    echo "" && \
-    echo "Q.E.D." && \
-    echo "========================================="

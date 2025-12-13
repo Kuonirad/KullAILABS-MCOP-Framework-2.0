@@ -1,0 +1,65 @@
+name: Guard - Trojan Source / Bidi Controls
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  trojan-source-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (pinned)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Scan repository for bidi / hidden Unicode controls
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os, sys, re
+
+          # Trojan Source relevant controls (plus common invisible direction marks)
+          BAD = [
+            '\u202A','\u202B','\u202C','\u202D','\u202E',  # LRE/RLE/PDF/LRO/RLO
+            '\u2066','\u2067','\u2068','\u2069',          # LRI/RLI/FSI/PDI
+            '\u200E','\u200F',                            # LRM/RLM
+            '\u061C',                                     # ALM
+          ]
+          badset = set(BAD)
+
+          # Restrict scan to likely-source files; skip common vendor/build dirs
+          ex_dirs = {'.git','node_modules','.next','dist','build','out','coverage'}
+          ex_exts = {'.png','.jpg','.jpeg','.gif','.webp','.ico','.zip','.gz','.tar','.pdf'}
+
+          offenders = []
+          for root, dirs, files in os.walk('.'):
+            dirs[:] = [d for d in dirs if d not in ex_dirs]
+            for fn in files:
+              path = os.path.join(root, fn)
+              _, ext = os.path.splitext(path)
+              if ext.lower() in ex_exts:
+                continue
+              try:
+                data = open(path,'rb').read()
+              except Exception:
+                continue
+              try:
+                text = data.decode('utf-8', errors='ignore')
+              except Exception:
+                continue
+              hit_positions = [i for i,ch in enumerate(text) if ch in badset]
+              if hit_positions:
+                offenders.append((path, hit_positions[:5]))
+
+          if offenders:
+            print("FAIL: Trojan Source / bidi control characters detected:")
+            for path, positions in offenders:
+              print(f"  - {path}: positions {positions} (showing up to 5)")
+            sys.exit(1)
+
+          print("OK: no bidi/hidden control characters found.")
+          PY

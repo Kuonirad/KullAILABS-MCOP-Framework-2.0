@@ -1,11 +1,12 @@
 # MCOP Framework 2.0 🌌
 
-[![Entropy: 0.07](https://img.shields.io/badge/Entropy-0.07-Crystalline-blueviolet)](https://github.com/KullAILABS/MCOP-Framework-2.0)
-[![Confidence: 1.00](https://img.shields.io/badge/Confidence-1.00-Perfect-green)](https://github.com/KullAILABS/MCOP-Framework-2.0)
-[![Gamma: 0.10](https://img.shields.io/badge/Gamma-0.10-Optimal-orange)](https://github.com/KullAILABS/MCOP-Framework-2.0)
-[![Build Status](https://github.com/KullAILABS/MCOP-Framework-2.0/workflows/CI/badge.svg)](https://github.com/KullAILABS/MCOP-Framework-2.0/actions)
+[![Entropy: 0.07](https://img.shields.io/badge/Entropy-0.07-Crystalline-blueviolet)](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0)
+[![Confidence: 1.00](https://img.shields.io/badge/Confidence-1.00-Perfect-green)](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0)
+[![Gamma: 0.10](https://img.shields.io/badge/Gamma-0.10-Optimal-orange)](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0)
+[![Build Status](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/workflows/CI/badge.svg)](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/actions)
+[![Security](https://img.shields.io/badge/Security-Hardened-brightgreen)](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/security)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![All Contributors](https://img.shields.io/github/all-contributors/KullAILABS/MCOP-Framework-2.0)](#contributors-)
+[![All Contributors](https://img.shields.io/github/all-contributors/Kuonirad/KullAILABS-MCOP-Framework-2.0)](#contributors-)
 
 > **Meta-Cognitive Optimization Protocol** - Advanced framework for cognitive enhancement and system optimization
 
@@ -13,8 +14,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/KullAILABS/MCOP-Framework-2.0.git
-cd MCOP-Framework-2.0
+git clone https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0.git
+cd KullAILABS-MCOP-Framework-2.0
 
 # Install dependencies
 npm install
@@ -78,7 +79,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ## 🐛 Bug Reports
 
-Found a bug? Please [open an issue](https://github.com/KullAILABS/MCOP-Framework-2.0/issues) using our bug report template.
+Found a bug? Please [open an issue](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/issues) using our bug report template.
 
 ## 🌟 Show Your Support
 
@@ -96,10 +97,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- [Documentation](https://github.com/KullAILABS/MCOP-Framework-2.0/wiki)
-- [Issues](https://github.com/KullAILABS/MCOP-Framework-2.0/issues)
-- [Discussions](https://github.com/KullAILABS/MCOP-Framework-2.0/discussions)
-- [Releases](https://github.com/KullAILABS/MCOP-Framework-2.0/releases)
+- [Documentation](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/wiki)
+- [Issues](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/issues)
+- [Discussions](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/discussions)
+- [Releases](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/releases)
+- [Security Policy](SECURITY.md)
 
 ---
 
