@@ -1,0 +1,33 @@
+{
+  "projectName": "MCOP-Framework-2.0",
+  "projectOwner": "KullAILABS",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["README.md", "CONTRIBUTORS.md"],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "KullAILABS",
+      "name": "KullAI Labs",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12345678?v=4",
+      "profile": "https://github.com/KullAILABS",
+      "contributions": ["code", "doc", "ideas", "infra", "maintenance", "projectManagement", "research"]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "contributorsSortAlphabetically": false,
+  "badgeTemplate": "[![All Contributors](https://img.shields.io/github/all-contributors/<%= projectOwner %>/<%= projectName %>?color=ee8449&style=flat-square)](#contributors)",
+  "contributorTemplate": "<a href="<%= contributor.profile %>" title="<%= contributionType %>" target="_blank"><img src="<%= contributor.avatar_url %>" width="<%= options.imageSize %>px;" alt=""/><br /><sub><b><%= contributor.name %></b></sub></a>",
+  "types": {
+    "custom": {
+      "symbol": "🔭",
+      "description": "A custom contribution type.",
+      "link": "[<%= symbol %>](<%= url %> '<%= description %>')"
+    }
+  },
+  "linkToUsage": true,
+  "skipCi": true,
+  "contributorsFileOnly": false
+}
