@@ -1,0 +1,30 @@
+# Code owners for MCOP Framework 2.0
+# These owners will be automatically requested for review when PRs modify their code
+
+# Global code owner
+* @Kuonirad
+
+# Documentation
+/docs/ @Kuonirad
+*.md @Kuonirad
+
+# Source code
+/src/ @Kuonirad
+/components/ @Kuonirad
+/lib/ @Kuonirad
+
+# Configuration files
+*.config.* @Kuonirad
+*.json @Kuonirad
+.env* @Kuonirad
+
+# GitHub workflows
+/.github/ @Kuonirad
+
+# Package management
+package*.json @Kuonirad
+
+# TypeScript configuration
+*.ts @Kuonirad
+*.tsx @Kuonirad
+tsconfig.json @Kuonirad
