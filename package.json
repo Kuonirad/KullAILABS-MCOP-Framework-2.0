@@ -1,7 +1,10 @@
 {
-  "name": "webapp",
+  "name": "@kuonirad/mcop-framework",
   "version": "0.1.0",
   "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
@@ -12,9 +15,9 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "next": "15.5.9",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "next": "16.0.10",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -22,11 +25,11 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@types/jest": "^30.0.0",
-    "@types/node": "^20",
+    "@types/node": "25.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.5.9",
+    "eslint-config-next": "16.0.10",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "tailwindcss": "^4",
