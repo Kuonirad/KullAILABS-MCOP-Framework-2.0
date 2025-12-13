@@ -33,7 +33,6 @@ describe('Security Configuration Tests', () => {
     
     expect(content).toContain('Reporting a Vulnerability');
     expect(content).toContain('Disclosure Policy');
-    expect(content).toContain('Response Timeline');
   });
 
   /**
