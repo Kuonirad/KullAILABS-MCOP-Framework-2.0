@@ -137,6 +137,28 @@ Initialize the MCOP environment on your local machine.
     npm test
     ```
 
+### 🐳 Quick Start with Docker Compose
+
+1. Copy `.env.example` to `.env` and set `TAG=v2.0.0` (or `latest`)
+2. Run:
+   ```bash
+   docker compose up -d
+   ```
+3. Access at http://localhost:3000
+
+For development, create `docker-compose.override.yml`:
+```yaml
+services:
+  mcop-app:
+    build: .              # Use local Dockerfile instead of GHCR
+    volumes:
+      - .:/app             # Live code mounting
+    environment:
+      - NODE_ENV=development
+```
+Then `docker compose up` automatically merges.
+
+
 ## 🗺️ Roadmap: Future Horizons
 
 - [ ] **Phase 3:** Integration of Quantum-Resistant Cryptography.
