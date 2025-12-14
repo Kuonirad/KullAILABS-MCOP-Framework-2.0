@@ -1,0 +1,16 @@
+{
+  "novaNeo": {
+    "dimensions": 64,
+    "normalize": true,
+    "entropyFloor": 0.05
+  },
+  "stigmergy": {
+    "resonanceThreshold": 0.6,
+    "maxTraces": 1024
+  },
+  "holographicEtch": {
+    "confidenceFloor": 0.85,
+    "persistence": "memory",
+    "auditLog": true
+  }
+}
