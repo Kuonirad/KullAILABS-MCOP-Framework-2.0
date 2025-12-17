@@ -17,15 +17,14 @@ export class NovaNeoEncoder {
 
   encode(text: string): ContextTensor {
     const hash = crypto.createHash('sha256').update(text).digest();
-    const values: number[] = [];
+    const len = this.dimensions;
+    const values = new Array<number>(len);
+    const hashLen = hash.length;
 
-    // Repeat the hash to fill the requested dimensions
-    while (values.length < this.dimensions) {
-      for (const byte of hash) {
-        const signed = (byte / 255) * 2 - 1; // map 0-255 → -1..1
-        values.push(signed);
-        if (values.length === this.dimensions) break;
-      }
+    // Pre-allocate and fill using modulo arithmetic to avoid resizing and nested loops
+    for (let i = 0; i < len; i++) {
+      const byte = hash[i % hashLen];
+      values[i] = (byte / 255) * 2 - 1; // map 0-255 → -1..1
     }
 
     if (this.normalize) {
