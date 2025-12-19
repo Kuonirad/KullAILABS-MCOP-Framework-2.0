@@ -77,6 +77,7 @@ We adhere to a **90-day responsible disclosure policy**. When a report is receiv
 ### Supply Chain Security
 
 - GitHub Actions workflows use SHA-pinned dependencies
+- Static Code Analysis (CodeQL) for JS/TS and Python
 - Trojan Source detection is enabled
 - SBOM generation for releases (planned)
 
