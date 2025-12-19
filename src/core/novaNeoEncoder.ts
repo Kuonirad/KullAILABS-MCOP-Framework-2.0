@@ -17,20 +17,36 @@ export class NovaNeoEncoder {
 
   encode(text: string): ContextTensor {
     const hash = crypto.createHash('sha256').update(text).digest();
-    const values: number[] = [];
 
-    // Repeat the hash to fill the requested dimensions
-    while (values.length < this.dimensions) {
-      for (const byte of hash) {
-        const signed = (byte / 255) * 2 - 1; // map 0-255 → -1..1
-        values.push(signed);
-        if (values.length === this.dimensions) break;
+    // Optimization 1: Pre-calculate signed hash values
+    // This avoids recalculating (byte / 255) * 2 - 1 repeatedly in the loop
+    const signedHash = new Float64Array(hash.length);
+    for (let i = 0; i < hash.length; i++) {
+      signedHash[i] = (hash[i] / 255) * 2 - 1;
+    }
+
+    // Optimization 2: Pre-allocate the result array
+    // Optimization 3: Calculate sum of squares during filling if normalization is needed
+    const values = new Array(this.dimensions);
+    let sumSquares = 0;
+    const hashLen = hash.length;
+
+    for (let i = 0; i < this.dimensions; i++) {
+      // Use modulo with constant length (hashLen is usually 32 for sha256)
+      const val = signedHash[i % hashLen];
+      values[i] = val;
+
+      if (this.normalize) {
+        sumSquares += val * val;
       }
     }
 
     if (this.normalize) {
-      const norm = Math.sqrt(values.reduce((acc, v) => acc + v * v, 0)) || 1;
-      return values.map(v => v / norm);
+      const norm = Math.sqrt(sumSquares) || 1;
+      // Optimization 4: In-place normalization to avoid second array allocation from map()
+      for (let i = 0; i < this.dimensions; i++) {
+        values[i] /= norm;
+      }
     }
 
     return values;
