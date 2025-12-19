@@ -96,4 +96,4 @@ Stigmergic contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for
 Responsible disclosure details are in [SECURITY.md](SECURITY.md). No secrets belong in source; tests guard against accidental leaks.
 
 ## 🪪 License
-MIT © KullAILABS
+MIT © Kevin Kull
