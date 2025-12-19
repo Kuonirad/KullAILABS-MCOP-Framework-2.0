@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { ContextTensor, NovaNeoConfig } from './types';
+import logger from '../utils/logger';
 
 export class NovaNeoEncoder {
   private readonly dimensions: number;
@@ -48,6 +49,17 @@ export class NovaNeoEncoder {
         values[i] /= norm;
       }
     }
+
+    // Observability: Log provenance data for auditability
+    logger.debug({
+      msg: 'NOVA-NEO Encoding complete',
+      provenance: {
+        inputLength: text.length,
+        dimensions: this.dimensions,
+        entropy: this.estimateEntropy(values),
+        tensorHash: crypto.createHash('sha256').update(JSON.stringify(values)).digest('hex').substring(0, 8)
+      }
+    });
 
     return values;
   }

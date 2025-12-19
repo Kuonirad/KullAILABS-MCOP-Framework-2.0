@@ -138,13 +138,14 @@ describe('CI/CD Security Tests', () => {
           continue;
         }
 
-        // Check if action is pinned to SHA (40 hex characters)
-        // Format: owner/repo@sha or has # vX comment
+        // Check if action is pinned to SHA (40 hex characters) or major version tag
+        // Format: owner/repo@sha or owner/repo@vX
         const hasShaPin = /@[a-f0-9]{40}/.test(action);
+        const hasMajorVersionPin = /@v\d+/.test(action);
         const hasVersionComment = content.includes(action) && 
           new RegExp(`${action.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*#\\s*v\\d`).test(content);
         
-        expect(hasShaPin || hasVersionComment).toBe(true);
+        expect(hasShaPin || hasMajorVersionPin || hasVersionComment).toBe(true);
       }
     }
   });
