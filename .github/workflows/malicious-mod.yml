@@ -25,6 +25,9 @@ jobs:
 
       - name: Setup project environment (minimal)
         uses: ./.github/actions/setup-project
+
+      - name: Setup project environment (minimal)
+        uses: ./.github/actions/setup-project
       - name: Setup project environment (minimal)
         uses: ./.github/actions/setup-project
       - name: Checkout (pinned)

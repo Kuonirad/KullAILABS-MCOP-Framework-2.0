@@ -34,6 +34,9 @@ jobs:
 
       - name: Setup project environment
         uses: ./.github/actions/setup-project
+
+      - name: Setup project environment
+        uses: ./.github/actions/setup-project
       - name: Setup project environment
         uses: ./.github/actions/setup-project
       - name: Checkout (pinned)
