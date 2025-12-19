@@ -14,6 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup project environment (minimal)
+        uses: ./.github/actions/setup-project
       - name: Setup project environment (minimal)
         uses: ./.github/actions/setup-project
       - name: Checkout (pinned)
