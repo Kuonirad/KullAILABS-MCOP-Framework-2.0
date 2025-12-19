@@ -8,12 +8,18 @@
 # - Multi-stage build to minimize attack surface
 # - Production dependencies only in final image
 
+# Base image is pinned by digest for reproducibility; update NODE_IMAGE intentionally.
+ARG NODE_IMAGE=node:20-bookworm-slim@sha256:1b38aaddff63cd0d3a9b5b03863a71fd33ee62047dd2e915f494d96b4b9c18cc
+
+# =============================================================================
+# Stage 0: Base
+# =============================================================================
+FROM ${NODE_IMAGE} AS base
+
 # =============================================================================
 # Stage 1: Dependencies
 # =============================================================================
-# TODO: Pin to specific digest for maximum reproducibility
-# Example: node:20-bookworm-slim@sha256:<digest>
-FROM node:20-bookworm-slim AS deps
+FROM base AS deps
 
 WORKDIR /app
 
@@ -26,7 +32,7 @@ RUN npm ci --only=production && npm cache clean --force
 # =============================================================================
 # Stage 2: Builder
 # =============================================================================
-FROM node:20-bookworm-slim AS builder
+FROM base AS builder
 
 WORKDIR /app
 
@@ -49,7 +55,7 @@ RUN npm run build
 # =============================================================================
 # Stage 3: Runner (Production)
 # =============================================================================
-FROM node:20-bookworm-slim AS runner
+FROM base AS runner
 
 WORKDIR /app
 
