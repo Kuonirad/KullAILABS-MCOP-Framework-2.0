@@ -99,6 +99,13 @@ export default function Home() {
             width={16}
             height={16}
           />
+          <span className="flex items-center gap-1">
+            <span className="group-hover:underline group-hover:underline-offset-4">
+              Go to nextjs.org
+            </span>
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              →
+            </span>
           <span className="group-hover:underline group-hover:underline-offset-4">
             Go to nextjs.org
           </span>
