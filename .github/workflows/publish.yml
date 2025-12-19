@@ -13,12 +13,14 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: read
       packages: write
 
     steps:
       - name: Checkout repository
+        uses: actions/checkout@v4
         uses: actions/checkout@v4 # v4 - latest compatible
 
       - name: Log in to the Container registry
