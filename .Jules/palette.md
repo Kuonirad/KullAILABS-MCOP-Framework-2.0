@@ -5,3 +5,6 @@
 ## 2024-02-14 - Directional Micro-interactions
 **Learning:** Static arrow icons in links (→) miss an opportunity to reinforce directionality. Animating the arrow on hover (translating x) creates a subtle, delightful affordance that encourages action.
 **Action:** Wrap directional characters/icons in a span with `group-hover:translate-x-1` (and `motion-reduce:transform-none`) when the parent link is hovered.
+## 2024-03-20 - Animated Arrow Links
+**Learning:** Simple text arrows in links feel static. Separating the arrow allows for playful interaction without breaking text decoration.
+**Action:** For links with arrows (→), wrap text in `group-hover:underline` and arrow in `group-hover:translate-x-1`. Use `motion-reduce` to disable animation.
