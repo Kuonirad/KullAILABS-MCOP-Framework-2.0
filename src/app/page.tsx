@@ -106,11 +106,6 @@ export default function Home() {
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               →
             </span>
-          <span className="group-hover:underline group-hover:underline-offset-4">
-            Go to nextjs.org
-          </span>
-          <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-            →
           </span>
           <span className="sr-only">(opens in a new tab)</span>
         </a>
