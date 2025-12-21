@@ -51,15 +51,18 @@ export class NovaNeoEncoder {
     }
 
     // Observability: Log provenance data for auditability
-    logger.debug({
-      msg: 'NOVA-NEO Encoding complete',
-      provenance: {
-        inputLength: text.length,
-        dimensions: this.dimensions,
-        entropy: this.estimateEntropy(values),
-        tensorHash: crypto.createHash('sha256').update(JSON.stringify(values)).digest('hex').substring(0, 8)
-      }
-    });
+    // Optimization: Only compute expensive provenance data if debug logging is enabled
+    if (logger.isLevelEnabled('debug')) {
+      logger.debug({
+        msg: 'NOVA-NEO Encoding complete',
+        provenance: {
+          inputLength: text.length,
+          dimensions: this.dimensions,
+          entropy: this.estimateEntropy(values),
+          tensorHash: crypto.createHash('sha256').update(JSON.stringify(values)).digest('hex').substring(0, 8)
+        }
+      });
+    }
 
     return values;
   }
