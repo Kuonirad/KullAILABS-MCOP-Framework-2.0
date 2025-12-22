@@ -58,7 +58,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v4 # v4 - latest compatible
+        uses: actions/upload-artifact@v6 # v4 - latest compatible
         with:
           name: coverage-${{ matrix.node-version }}
           path: coverage/
@@ -97,7 +97,7 @@ jobs:
         run: npm run build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4 # v4 - latest compatible
+        uses: actions/upload-artifact@v6 # v4 - latest compatible
         with:
           name: build
           path: .next/
