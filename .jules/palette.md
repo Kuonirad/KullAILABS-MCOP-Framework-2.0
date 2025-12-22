@@ -8,3 +8,7 @@
 ## 2024-03-20 - Animated Arrow Links
 **Learning:** Simple text arrows in links feel static. Separating the arrow allows for playful interaction without breaking text decoration.
 **Action:** For links with arrows (→), wrap text in `group-hover:underline` and arrow in `group-hover:translate-x-1`. Use `motion-reduce` to disable animation.
+
+## 2025-12-22 - Fluid Button Containers
+**Learning:** Fixed width constraints on buttons break layout when adding micro-UX elements like icons and animated arrows.
+**Action:** When enhancing button content, remove fixed width constraints (e.g., `w-[158px]`) and rely on flexbox/padding to allow the container to adapt naturally.
