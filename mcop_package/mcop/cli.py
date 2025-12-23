@@ -11,6 +11,7 @@ Usage:
 """
 
 import argparse
+import os
 import sys
 import json
 import logging
@@ -138,9 +139,21 @@ def cmd_solve(args):
 
     # Save to file if requested
     if args.output:
-        with open(args.output, 'w') as f:
-            f.write(output)
-        print(f"Solution saved to: {args.output}")
+        try:
+            mode = 'w' if args.force else 'x'
+            with open(args.output, mode) as f:
+                f.write(output)
+            print(f"Solution saved to: {args.output}")
+        except FileExistsError:
+            print(f"Error: Output file '{args.output}' already exists.")
+            print("Use --force to overwrite.")
+            sys.exit(1)
+        except IsADirectoryError:
+            print(f"Error: '{args.output}' is a directory.")
+            sys.exit(1)
+        except OSError as e:
+            print(f"Error saving to file: {e}")
+            sys.exit(1)
 
 
 def cmd_interactive(args):
@@ -304,6 +317,11 @@ Examples:
     solve_parser.add_argument(
         '--output', '-o',
         help='Output file path'
+    )
+    solve_parser.add_argument(
+        '--force',
+        action='store_true',
+        help='Overwrite output file if it exists'
     )
     solve_parser.add_argument(
         '--constraints', '-c',
