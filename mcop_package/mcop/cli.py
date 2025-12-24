@@ -138,9 +138,14 @@ def cmd_solve(args):
 
     # Save to file if requested
     if args.output:
-        with open(args.output, 'w') as f:
-            f.write(output)
-        print(f"Solution saved to: {args.output}")
+        mode = 'w' if args.force else 'x'
+        try:
+            with open(args.output, mode) as f:
+                f.write(output)
+            print(f"Solution saved to: {args.output}")
+        except FileExistsError:
+            print(f"Error: File '{args.output}' already exists. Use --force to overwrite.")
+            sys.exit(1)
 
 
 def cmd_interactive(args):
@@ -304,6 +309,11 @@ Examples:
     solve_parser.add_argument(
         '--output', '-o',
         help='Output file path'
+    )
+    solve_parser.add_argument(
+        '--force',
+        action='store_true',
+        help='Overwrite output file if it exists'
     )
     solve_parser.add_argument(
         '--constraints', '-c',
