@@ -13,6 +13,7 @@ export interface PheromoneTrace {
   context: ContextTensor;
   synthesisVector: number[];
   weight: number;
+  magnitude?: number;
   metadata?: Record<string, unknown>;
   timestamp: string;
 }
