@@ -15,6 +15,7 @@ export interface PheromoneTrace {
   weight: number;
   metadata?: Record<string, unknown>;
   timestamp: string;
+  magnitude?: number;
 }
 
 export interface ResonanceResult {
