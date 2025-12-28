@@ -16,6 +16,7 @@ export class StigmergyV5 {
     this.maxTraces = config.maxTraces ?? 2048;
   }
 
+  private cosine(a: ContextTensor, b: ContextTensor, magA?: number, magB?: number): number {
   private calculateMagnitude(v: ContextTensor): number {
     let sum = 0;
     for (let i = 0; i < v.length; i++) {
@@ -56,6 +57,7 @@ export class StigmergyV5 {
     // Standard path (lengths differ or no pre-calc)
     let dot = 0;
 
+    // Optimization: If magnitudes are provided, skip sum-of-squares calculation
     // If magnitudes are not provided, we calculate them during the loop if possible,
     // but calculating them separately is clearer and allows for the optimization.
     // However, to preserve the exact logic of the original loop (calculating norms only up to minLen),
@@ -123,6 +125,8 @@ export class StigmergyV5 {
     const magnitude = this.calculateMagnitude(context);
 
     const weight = this.cosine(context, synthesisVector);
+    // Cache the magnitude of the context tensor for faster resonance queries
+    const magnitude = Math.sqrt(context.reduce((acc, v) => acc + v * v, 0));
     // Calculate magnitude once and cache it
     const magnitude = this.computeMagnitude(context);
 
@@ -134,6 +138,7 @@ export class StigmergyV5 {
       hash,
       parentHash,
       context,
+      magnitude,
       synthesisVector,
       weight,
       magnitude,
@@ -151,6 +156,12 @@ export class StigmergyV5 {
 
   getResonance(context: ContextTensor): ResonanceResult {
     let best: ResonanceResult = { score: 0 };
+    // Pre-calculate query magnitude to avoid recomputing it for every trace
+    const queryMag = Math.sqrt(context.reduce((acc, v) => acc + v * v, 0));
+
+    for (const trace of this.traces) {
+      // Use cached magnitudes if available
+      const score = this.cosine(context, trace.context, queryMag, trace.magnitude);
     const inputMag = this.calculateMagnitude(context);
 
     for (const trace of this.traces) {

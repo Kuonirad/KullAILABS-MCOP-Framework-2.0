@@ -11,6 +11,7 @@ export interface PheromoneTrace {
   hash: string;
   parentHash?: string;
   context: ContextTensor;
+  magnitude?: number;
   synthesisVector: number[];
   weight: number;
   magnitude?: number;
