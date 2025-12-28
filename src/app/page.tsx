@@ -66,6 +66,7 @@ export default function Home() {
               aria-hidden
             />
             Read our docs
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none ml-1">
               →
             </span>
@@ -81,6 +82,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <Image
+            className="dark:invert"
             aria-hidden
             className="dark:invert"
             src="/file.svg"
@@ -99,6 +101,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <Image
+            className="dark:invert"
             aria-hidden
             className="dark:invert"
             src="/window.svg"
@@ -117,6 +120,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <Image
+            className="dark:invert"
             aria-hidden
             className="dark:invert"
             src="/globe.svg"
