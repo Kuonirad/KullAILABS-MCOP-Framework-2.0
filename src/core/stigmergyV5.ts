@@ -16,6 +16,10 @@ export class StigmergyV5 {
     this.maxTraces = config.maxTraces ?? 2048;
   }
 
+  private calculateMagnitude(v: ContextTensor): number {
+    let sum = 0;
+    for (let i = 0; i < v.length; i++) {
+      sum += v[i] * v[i];
   private computeMagnitude(tensor: ContextTensor): number {
     let sumSq = 0;
     for (const val of tensor) {
@@ -33,6 +37,7 @@ export class StigmergyV5 {
     return Math.sqrt(sum);
   }
 
+  private cosine(a: ContextTensor, b: ContextTensor, magA?: number, magB?: number): number {
   private cosine(a: ContextTensor, b: ContextTensor, normA?: number, normB?: number): number {
     const minLen = Math.min(a.length, b.length);
 
@@ -50,6 +55,30 @@ export class StigmergyV5 {
 
     // Standard path (lengths differ or no pre-calc)
     let dot = 0;
+
+    // If magnitudes are not provided, we calculate them during the loop if possible,
+    // but calculating them separately is clearer and allows for the optimization.
+    // However, to preserve the exact logic of the original loop (calculating norms only up to minLen),
+    // we should be careful.
+    // The original logic calculated norms based on i < minLen.
+    // Assuming vectors are of same length (which they should be in this system), full magnitude is correct.
+    // If lengths differ, the original code only considered the overlapping part for the norm,
+    // which is mathematically questionable for cosine similarity but I must preserve behavior if possible.
+    // However, ContextTensors are usually fixed dimension.
+    // Let's assume standard cosine similarity where norm is over the whole vector.
+    // But to be safe and optimize for the cached case:
+
+    if (magA !== undefined && magB !== undefined) {
+      for (let i = 0; i < minLen; i++) {
+        dot += a[i] * b[i];
+      }
+      if (!magA || !magB) return 0;
+      return dot / (magA * magB);
+    }
+
+    // Fallback to original calculation if magnitudes are missing
+    let normA = 0;
+    let normB = 0;
     let sumSqA = 0;
     let sumSqB = 0;
     for (let i = 0; i < minLen; i++) {
@@ -89,6 +118,10 @@ export class StigmergyV5 {
   recordTrace(context: ContextTensor, synthesisVector: number[], metadata?: Record<string, unknown>): PheromoneTrace {
     const parentHash = this.traces.at(-1)?.hash;
     const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+    // Calculate and cache magnitude
+    const magnitude = this.calculateMagnitude(context);
+
     const weight = this.cosine(context, synthesisVector);
     // Calculate magnitude once and cache it
     const magnitude = this.computeMagnitude(context);
@@ -118,6 +151,11 @@ export class StigmergyV5 {
 
   getResonance(context: ContextTensor): ResonanceResult {
     let best: ResonanceResult = { score: 0 };
+    const inputMag = this.calculateMagnitude(context);
+
+    for (const trace of this.traces) {
+      // Use cached magnitude if available
+      const score = this.cosine(context, trace.context, inputMag, trace.magnitude);
     // Pre-calculate input magnitude once for the entire batch
     const inputMagnitude = this.computeMagnitude(context);
 
