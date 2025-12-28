@@ -119,6 +119,8 @@ export class StigmergyV5 {
 
   recordTrace(context: ContextTensor, synthesisVector: number[], metadata?: Record<string, unknown>): PheromoneTrace {
     const parentHash = this.traces.at(-1)?.hash;
+    // Security: Use crypto.randomUUID() instead of Math.random() for cryptographically strong IDs
+    const id = crypto.randomUUID();
     const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
     // Calculate and cache magnitude
