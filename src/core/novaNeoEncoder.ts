@@ -27,18 +27,37 @@ export class NovaNeoEncoder {
     }
 
     // Optimization 2: Pre-allocate the result array
-    // Optimization 3: Calculate sum of squares during filling if normalization is needed
     const values = new Array(this.dimensions);
-    let sumSquares = 0;
     const hashLen = hash.length;
 
-    for (let i = 0; i < this.dimensions; i++) {
-      // Use modulo with constant length (hashLen is usually 32 for sha256)
-      const val = signedHash[i % hashLen];
-      values[i] = val;
+    // Optimization 3: Calculate sum of squares analytically to avoid O(N) additions in the loop
+    let sumSquares = 0;
+    if (this.normalize) {
+      let hashSumSquares = 0;
+      for (let i = 0; i < hashLen; i++) {
+        const v = signedHash[i];
+        hashSumSquares += v * v;
+      }
 
-      if (this.normalize) {
-        sumSquares += val * val;
+      const fullCycles = Math.floor(this.dimensions / hashLen);
+      const remainder = this.dimensions % hashLen;
+
+      sumSquares = hashSumSquares * fullCycles;
+      for (let i = 0; i < remainder; i++) {
+        const v = signedHash[i];
+        sumSquares += v * v;
+      }
+    }
+
+    // Optimization 4: Optimized filling loop
+    // Check for power-of-2 length (standard SHA-256 is 32 bytes) for bitwise AND
+    if (hashLen === 32) {
+      for (let i = 0; i < this.dimensions; i++) {
+        values[i] = signedHash[i & 31];
+      }
+    } else {
+      for (let i = 0; i < this.dimensions; i++) {
+        values[i] = signedHash[i % hashLen];
       }
     }
 
