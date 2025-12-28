@@ -18,5 +18,15 @@ describe('Health Check API', () => {
     // Verify it's a valid date string
     const date = new Date(data.timestamp);
     expect(date.toString()).not.toBe('Invalid Date');
+import { NextResponse } from 'next/server';
+
+describe('Health Check API', () => {
+  it('returns 200 and status ok', async () => {
+    const response = await GET();
+    expect(response).toBeInstanceOf(NextResponse);
+    expect(response.status).toBe(200);
+
+    const data = await response.json();
+    expect(data).toEqual({ status: 'ok' });
   });
 });
