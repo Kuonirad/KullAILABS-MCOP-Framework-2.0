@@ -12,3 +12,6 @@
 ## 2025-02-20 - Fluid Button Sizing
 **Learning:** Fixed width buttons (e.g., `md:w-[158px]`) break layout when content changes (translations, dynamic text) or user settings (font scaling) vary.
 **Action:** Avoid fixed width constraints on buttons. Use `w-auto` and padding to let content dictate size, ensuring flexibility and accessibility.
+## 2025-12-22 - Fluid Button Containers
+**Learning:** Fixed width constraints on buttons break layout when adding micro-UX elements like icons and animated arrows.
+**Action:** When enhancing button content, remove fixed width constraints (e.g., `w-[158px]`) and rely on flexbox/padding to allow the container to adapt naturally.
