@@ -14,6 +14,8 @@ export interface PheromoneTrace {
   magnitude?: number;
   synthesisVector: number[];
   weight: number;
+  magnitude?: number;
+  magnitude?: number; // Optimization: Cached Euclidean norm of the context tensor
   metadata?: Record<string, unknown>;
   timestamp: string;
 }
