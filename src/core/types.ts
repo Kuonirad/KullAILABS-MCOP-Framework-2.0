@@ -11,12 +11,14 @@ export interface PheromoneTrace {
   hash: string;
   parentHash?: string;
   context: ContextTensor;
+  magnitude?: number;
   synthesisVector: number[];
   weight: number;
   magnitude?: number;
   magnitude?: number; // Optimization: Cached Euclidean norm of the context tensor
   metadata?: Record<string, unknown>;
   timestamp: string;
+  magnitude?: number;
 }
 
 export interface ResonanceResult {
