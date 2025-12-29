@@ -15,7 +15,6 @@ import os
 import sys
 import json
 import logging
-import os
 from typing import Optional
 
 from . import MCOPEngine, MCOPConfig, Problem, Solution, __version__
@@ -140,17 +139,24 @@ def cmd_solve(args):
 
     # Save to file if requested
     if args.output:
-        mode = 'w' if args.force else 'x'
         try:
-        try:
+            # Security: Use 'x' mode (exclusive creation) unless forced, to prevent
+            # accidental overwrites. This is a Time-of-Check to Time-of-Use (TOCTOU)
+            # safe way to handle file creation.
             mode = 'w' if args.force else 'x'
+
+            # Additional path check (optional but good practice)
+            # Ensure we are not writing to a directory
+            if os.path.isdir(args.output):
+                 print(f"Error: '{args.output}' is a directory.")
+                 sys.exit(1)
+
             with open(args.output, mode) as f:
                 f.write(output)
             print(f"Solution saved to: {args.output}")
+
         except FileExistsError:
-            print(f"Error: File '{args.output}' already exists. Use --force to overwrite.")
-            sys.exit(1)
-            print(f"Error: Output file '{args.output}' already exists.")
+            print(f"Error: File '{args.output}' already exists.")
             print("Use --force to overwrite.")
             sys.exit(1)
         except IsADirectoryError:
@@ -159,18 +165,6 @@ def cmd_solve(args):
         except OSError as e:
             print(f"Error saving to file: {e}")
             sys.exit(1)
-            abs_output = os.path.abspath(args.output)
-
-            # Security Check: Prevent accidental overwrite without force
-            if os.path.exists(abs_output) and not args.force:
-                print(f"Error: File exists: {args.output}")
-                print("Use --force to overwrite.")
-                sys.exit(1)
-
-            with open(abs_output, 'w') as f:
-                f.write(output)
-            print(f"Solution saved to: {args.output}")
-
         except Exception as e:
              print(f"Error saving file: {e}")
              sys.exit(1)
@@ -337,11 +331,6 @@ Examples:
     solve_parser.add_argument(
         '--output', '-o',
         help='Output file path'
-    )
-    solve_parser.add_argument(
-        '--force',
-        action='store_true',
-        help='Overwrite output file if it exists'
     )
     solve_parser.add_argument(
         '--constraints', '-c',
