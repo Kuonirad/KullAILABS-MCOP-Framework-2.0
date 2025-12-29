@@ -15,3 +15,7 @@
 ## 2025-12-22 - Fluid Button Containers
 **Learning:** Fixed width constraints on buttons break layout when adding micro-UX elements like icons and animated arrows.
 **Action:** When enhancing button content, remove fixed width constraints (e.g., `w-[158px]`) and rely on flexbox/padding to allow the container to adapt naturally.
+
+## 2025-12-23 - Button Layout with Gap
+**Learning:** Using margins on child elements (e.g., `mr-2` or `ml-1`) to space icons and text within buttons is fragile and can lead to misalignment when text wraps or when using right-to-left languages.
+**Action:** Use `flex` and `gap-2` on the button container to strictly control spacing between all child elements (icons, text, arrows) uniformly and robustly.
