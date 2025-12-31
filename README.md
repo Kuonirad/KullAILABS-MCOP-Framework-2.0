@@ -1,5 +1,11 @@
 # MCOP Framework 2.0 🌌
 
+[![Eco-Fitness](https://img.shields.io/badge/Eco--Fitness-72.75%2F100-green?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMmE3IDcgMCAwIDAgLTcgN2MwIDIuNCAzIDcgNyAxMSA0IC00IDcgLTguNiA3IC0xMWE3IDcgMCAwIDAgLTcgLTd6Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSI5IiByPSIyIi8+PC9zdmc+)](./ROADMAP_TO_100.md)
+[![Test Coverage](https://img.shields.io/badge/coverage-30%25-orange?style=flat-square)](./src/__tests__)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Contributors](https://img.shields.io/badge/contributors-6-brightgreen?style=flat-square)](https://github.com/Kuonirad/KullAILABS-MCOP-Framework-2.0/graphs/contributors)
+[![Bus Factor](https://img.shields.io/badge/bus%20factor-1.5-red?style=flat-square)](./ROADMAP_TO_100.md#critical-vulnerabilities)
+
 Meta-Cognitive Optimization Protocol for deterministic, auditable triad orchestration: **NOVA-NEO Encoder**, **Stigmergy v5 Resonance**, and **Holographic Etch Engine**. Built with Next.js + TypeScript and ready for research, prototyping, and production hardening.
 
 > Crystalline entropy targets, Merkle-tracked pheromones, and rank-1 micro-etches—packaged for real-world deployment.
@@ -90,7 +96,19 @@ Configuration knobs live in [`config/examples/mcop.config.example.json`](config/
 - Provenance hashes and audit-friendly logging enable replay.
 
 ## 🤝 Contributing
-Stigmergic contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for pheromone drop protocol, branch hygiene, and review expectations.
+
+**We need you!** Current bus factor: **1.5** (CRITICAL - ecosystem at risk)
+
+Stigmergic contributions are welcome! Our ecological health depends on biodiversity:
+
+- 🌱 **New contributors needed:** See [CONTRIBUTOR_ONBOARDING.md](CONTRIBUTOR_ONBOARDING.md) for 30-minute quick start
+- 🎯 **Good first issues:** Check [issues labeled "good first issue"](../../issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+- 📊 **Track our health:** Run `npm run eco:audit` to see ecosystem metrics
+- 🗺️ **Roadmap to 100:** See [ROADMAP_TO_100.md](ROADMAP_TO_100.md) for the path to climax ecosystem
+
+**Current Eco-Fitness Score:** 72.75/100 (Thriving Pioneer - needs biodiversity)
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for pheromone drop protocol, branch hygiene, and review expectations.
 
 ## 🔒 Security
 Responsible disclosure details are in [SECURITY.md](SECURITY.md). No secrets belong in source; tests guard against accidental leaks.
