@@ -12,7 +12,10 @@
     "lint": "eslint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "deps:check": "npm outdated && npm audit",
+    "deps:audit": "npm audit",
+    "deps:update-check": "npm outdated"
   },
   "dependencies": {
     "next": "16.1.1",
@@ -21,7 +24,6 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
