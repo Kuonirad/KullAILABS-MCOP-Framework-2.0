@@ -41,11 +41,5 @@
     "tailwindcss": "^4",
     "ts-jest": "^29.4.6",
     "typescript": "^5"
-  },
-  "overrides": {
-    "test-exclude": "^7.0.1",
-    "jsdom": "^27.4.0",
-    "glob": "^10.0.0",
-    "inflight": "npm:@npmcli/fs@^4.0.0"
   }
 }
