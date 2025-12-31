@@ -43,9 +43,6 @@ export default function Home() {
             <span className="sr-only">(opens in a new tab)</span>
           </a>
           <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95 focus:outline-none"
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto gap-2 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95 focus:outline-none"
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95 focus:outline-none"
             className="group rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95 focus:outline-none"
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
             target="_blank"
@@ -53,20 +50,13 @@ export default function Home() {
           >
             <Image
               aria-hidden
-              className="dark:invert"
-              src="/file.svg"
-              alt="File icon"
-              width={20}
-              height={20}
               className="mr-2 dark:invert"
               src="/file.svg"
               alt="File icon"
               width={16}
               height={16}
-              aria-hidden
             />
             Read our docs
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none ml-1">
               →
             </span>
@@ -82,14 +72,12 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <Image
-            className="dark:invert"
             aria-hidden
             className="dark:invert"
             src="/file.svg"
             alt="File icon"
             width={16}
             height={16}
-            className="dark:invert"
           />
           Learn
           <span className="sr-only">(opens in a new tab)</span>
@@ -101,14 +89,12 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <Image
-            className="dark:invert"
             aria-hidden
             className="dark:invert"
             src="/window.svg"
             alt="Window icon"
             width={16}
             height={16}
-            className="dark:invert"
           />
           Examples
           <span className="sr-only">(opens in a new tab)</span>
@@ -120,14 +106,12 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <Image
-            className="dark:invert"
             aria-hidden
             className="dark:invert"
             src="/globe.svg"
             alt="Globe icon"
             width={16}
             height={16}
-            className="dark:invert"
           />
           <span className="flex items-center gap-1">
             <span className="group-hover:underline group-hover:underline-offset-4">
