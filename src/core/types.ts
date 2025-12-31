@@ -6,19 +6,21 @@ export interface NovaNeoConfig {
   entropyFloor?: number;
 }
 
+export interface StigmergyConfig {
+  resonanceThreshold?: number;
+  maxTraces?: number;
+}
+
 export interface PheromoneTrace {
   id: string;
   hash: string;
   parentHash?: string;
   context: ContextTensor;
-  magnitude?: number;
   synthesisVector: number[];
   weight: number;
-  magnitude?: number;
   magnitude?: number; // Optimization: Cached Euclidean norm of the context tensor
   metadata?: Record<string, unknown>;
   timestamp: string;
-  magnitude?: number;
 }
 
 export interface ResonanceResult {
