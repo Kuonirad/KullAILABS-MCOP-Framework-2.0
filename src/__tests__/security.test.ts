@@ -36,12 +36,12 @@ describe('Security Configuration Tests', () => {
   });
 
   /**
-   * Test Case: Package-lock.json Exists
+   * Test Case: Lockfile Exists
    * Ground Truth: Lockfile required for reproducible builds
-   * Failure Witness: package-lock.json not found
+   * Failure Witness: pnpm-lock.yaml not found
    */
-  it('has package-lock.json for reproducible builds', () => {
-    const lockPath = path.join(projectRoot, 'package-lock.json');
+  it('has pnpm-lock.yaml for reproducible builds', () => {
+    const lockPath = path.join(projectRoot, 'pnpm-lock.yaml');
     expect(fs.existsSync(lockPath)).toBe(true);
   });
 
