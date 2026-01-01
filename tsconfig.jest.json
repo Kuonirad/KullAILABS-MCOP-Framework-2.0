@@ -5,8 +5,9 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "isolatedModules": false,
-    "noEmit": false
+    "noEmit": false,
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "jest.setup.js"],
   "exclude": ["node_modules", ".next"]
 }
